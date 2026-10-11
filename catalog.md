@@ -67,6 +67,7 @@
 - **Stamp:** Federal
 - **Year:** 1983-84
 - **Artist:** Phil Scholer
+- **Official record:** [FWS record for the 1983-84 Federal Duck Stamp](https://www.fws.gov/media/duck-stamp-1983-1984)
 - **In frame:** Stamp (signed by artist)
 - **Notes:** Golden Anniversary folio
 
@@ -79,6 +80,7 @@
 - **Stamp:** Federal
 - **Year:** 1985-86
 - **Artist:** Gerald Mobley
+- **Official record:** [FWS record for the 1985-86 Federal Duck Stamp](https://www.fws.gov/media/duck-stamp-1985-1986)
 - **In frame:** Stamp (signed by artist)
 
 ### Print3: 1984-85 Federal, American Wigeon
@@ -90,6 +92,7 @@
 - **Stamp:** Federal
 - **Year:** 1984-85
 - **Artist:** William C. Morris
+- **Official record:** [FWS record for the 1984-85 Federal Duck Stamp](https://www.fws.gov/media/duck-stamp-1984-1985)
 - **In frame:** Stamp (signed by artist)
 - **Notes:** 50th anniversary of the Federal Duck Stamp
 
@@ -136,6 +139,7 @@
 - **Stamp:** Federal
 - **Year:** 1981-82
 - **Artist:** John S. Wilson
+- **Official record:** [FWS record for the 1981-82 Federal Duck Stamp](https://www.fws.gov/media/duck-stamp-1981-1982)
 - **In frame:** Stamp (signed by artist)
 
 ### Print8: 1988-89 Federal, Snow Goose
@@ -147,6 +151,7 @@
 - **Stamp:** Federal
 - **Year:** 1988-89
 - **Artist:** Daniel Smith
+- **Official record:** [FWS record for the 1988-89 Federal Duck Stamp](https://www.fws.gov/media/duck-stamp-1988-1989)
 - **In frame:** Stamp
 
 ### Print9: 1985-86 Arkansas, Bayou DeView Mallards
@@ -170,6 +175,7 @@
 - **Stamp:** Federal
 - **Year:** 1989-90
 - **Artist:** Neal R. Anderson
+- **Official record:** [FWS record for the 1989-90 Federal Duck Stamp](https://www.fws.gov/media/duck-stamp-1989-1990)
 - **In frame:** Stamp
 
 ### Print11: 1982-83 Federal, Canvasbacks
@@ -181,6 +187,7 @@
 - **Stamp:** Federal
 - **Year:** 1982-83
 - **Artist:** David A. Maass
+- **Official record:** [FWS record for the 1982-83 Federal Duck Stamp](https://www.fws.gov/media/duck-stamp-1982-1983)
 - **In frame:** Stamp (signed by artist), second stamp on back
 
 ### Print12: 1987-88 Federal, Redheads
@@ -192,6 +199,7 @@
 - **Stamp:** Federal
 - **Year:** 1987-88
 - **Artist:** Arthur G. Anderson
+- **Official record:** [FWS record for the 1987-88 Federal Duck Stamp](https://www.fws.gov/media/duck-stamp-1987-1988)
 - **In frame:** Stamp
 - **Notes:** Certificate of authenticity on back
 
@@ -204,6 +212,7 @@
 - **Stamp:** Federal
 - **Year:** 1986-87
 - **Artist:** Burton E. Moore, Jr.
+- **Official record:** [FWS record for the 1986-87 Federal Duck Stamp](https://www.fws.gov/media/duck-stamp-1986-1987)
 - **In frame:** Stamp
 - **Notes:** Folio also signed in ink
 
@@ -261,6 +270,7 @@
 - **Stamp:** Federal
 - **Year:** 1990-91
 - **Artist:** Jim Hautman
+- **Official record:** [FWS record for the 1990-91 Federal Duck Stamp](https://www.fws.gov/media/duck-stamp-1990-1991)
 - **In frame:** Stamp
 - **Notes:** Artwork and print dated 1989 (plate signed ©1989); stamp issued for 1990-91
 
@@ -296,5 +306,6 @@
 - **Stamp:** Other
 - **Year:** 1934 (issued 1984)
 - **Artist:** J.N. "Ding" Darling
+- **Official record:** [FWS record for the 1934-35 Federal Duck Stamp](https://www.fws.gov/media/duck-stamp-1934-1935)
 - **In frame:** Ding Darling Foundation 50th Anniversary $5 conservation stamp
 - **Notes:** Commemorative "Conservation Edition", not a hunting stamp print; gift inscription on back, Christmas 1984
