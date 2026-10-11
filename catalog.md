@@ -262,7 +262,7 @@
 - **Year:** 1990-91
 - **Artist:** Jim Hautman
 - **In frame:** Stamp
-- **Notes:** Year inferred from the $12.50 stamp; no folio photographed
+- **Notes:** Artwork and print dated 1989 (plate signed ©1989); stamp issued for 1990-91
 
 ### Print19: 1990-91 Arkansas, Point Remove: Black Duck and Mallards
 
