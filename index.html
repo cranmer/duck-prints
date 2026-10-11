@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Duck Stamp Prints 1981–1991</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: two parallel year-ordered runs (Federal / Arkansas) laid out as gallery walls, Darling 1934 as prologue; lightbox for detail. */
+:root{
+  --paper:#f3f1ec;
+  --card:#fbfaf7;
+  --ink:#1d2733;
+  --muted:#5d6672;
+  --rule:#d6d2c8;
+  --fed:#2c4a6e;        /* engraved-stamp blue */
+  --ark:#7a3b2e;        /* Arkansas brick */
+  --gold:#a07d2c;
+  --shade:rgba(20,26,34,.86);
+  --display:"Libre Caslon Text", Georgia, "Times New Roman", serif;
+  --body:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#15191f; --card:#1d232b; --ink:#e8e4da; --muted:#a2a9b3; --rule:#333b46;
+    --fed:#8fb0d8; --ark:#dc9a86; --gold:#d6b25c; --shade:rgba(5,7,10,.92); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#15191f; --card:#1d232b; --ink:#e8e4da; --muted:#a2a9b3; --rule:#333b46;
+  --fed:#8fb0d8; --ark:#dc9a86; --gold:#d6b25c; --shade:rgba(5,7,10,.92); color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:400 15px/1.55 var(--body);padding-inline:clamp(16px,4vw,48px);padding-block:0 64px}
+.wrap{max-width:1240px;margin:0 auto}
+header{padding-block:48px 28px;display:grid;gap:14px;border-bottom:1px solid var(--rule)}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+h1{font:400 clamp(34px,5.4vw,60px)/1.05 var(--display);margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--fed)}
+.lede{max-width:62ch;margin:0;color:var(--muted);font-size:16px}
+.facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin:6px 0 0;padding:0;list-style:none;font:400 13px/1.3 var(--mono);color:var(--muted)}
+.facts b{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-block:20px}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:999px;padding:3px;background:var(--card)}
+.seg button{all:unset;cursor:pointer;font:500 13px/1 var(--body);padding:8px 14px;border-radius:999px;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.seg button:focus-visible{outline:2px solid var(--fed);outline-offset:2px}
+.hint{font:400 12px/1.3 var(--mono);color:var(--muted)}
+
+section.run{padding-block:28px 12px}
+.runhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;margin-bottom:18px}
+.runhead h2{font:400 26px/1.15 var(--display);margin:0}
+.runhead .sub{color:var(--muted);font-size:14px}
+.run.fed h2{color:var(--fed)} .run.ark h2{color:var(--ark)} .run.oth h2{color:var(--gold)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:28px 22px}
+.piece{all:unset;cursor:pointer;display:grid;gap:10px;align-content:start}
+.piece:focus-visible .frame{outline:2px solid var(--fed);outline-offset:4px}
+.frame{aspect-ratio:1/1;display:grid;place-items:center;background:var(--card);border:1px solid var(--rule);padding:10px;transition:transform .25s ease, box-shadow .25s ease}
+.frame img{max-width:100%;max-height:100%;object-fit:contain;display:block;box-shadow:0 6px 14px -8px rgba(0,0,0,.45)}
+.piece:hover .frame{transform:translateY(-3px);box-shadow:0 14px 24px -18px rgba(0,0,0,.5)}
+.cap{display:grid;gap:2px}
+.cap .row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.yr{font:500 13px/1 var(--mono);font-variant-numeric:tabular-nums;color:var(--ink)}
+.tag{font:500 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:4px 6px;border:1px dashed currentColor;border-radius:2px}
+.tag.fed{color:var(--fed)} .tag.ark{color:var(--ark)} .tag.oth{color:var(--gold)}
+.ttl{font:400 16px/1.25 var(--display)}
+.art{color:var(--muted);font-size:13px}
+.ed{font:400 12px/1.2 var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.ed .sp{color:var(--gold);font-weight:500}
+
+/* lightbox */
+.lb{position:fixed;inset:0;background:var(--shade);display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,340px);gap:0;z-index:10}
+.lb[hidden]{display:none!important}
+.lb .stage{display:grid;place-items:center;padding:clamp(16px,3vw,40px);padding-top:calc(env(safe-area-inset-top,0px) + 24px);min-height:0}
+.lb .stage img{max-width:100%;max-height:calc(100vh - 80px);object-fit:contain;box-shadow:0 20px 50px -20px #000}
+.lb aside{background:var(--card);color:var(--ink);padding:28px 24px;padding-top:calc(env(safe-area-inset-top,0px) + 28px);overflow:auto;display:grid;align-content:start;gap:16px}
+.lb h3{font:400 26px/1.15 var(--display);margin:0;text-wrap:balance}
+.lb dl{display:grid;grid-template-columns:auto 1fr;gap:8px 14px;margin:0;font-size:14px}
+.lb dt{font:500 11px/1.6 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.lb dd{margin:0;font-variant-numeric:tabular-nums}
+.lb .num{font:400 34px/1 var(--display);font-variant-numeric:tabular-nums}
+.lb .num small{font-size:16px;color:var(--muted)}
+.lb .nav{display:flex;gap:8px;margin-top:4px}
+.lb .nav button{all:unset;cursor:pointer;font:500 13px/1 var(--body);padding:10px 14px;border:1px solid var(--rule);border-radius:999px}
+.lb .nav button:focus-visible{outline:2px solid var(--fed);outline-offset:2px}
+.lb .close{margin-left:auto}
+footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--rule);color:var(--muted);font-size:13px;max-width:70ch}
+@media (max-width:760px){
+  .lb{grid-template-columns:1fr;grid-template-rows:minmax(0,55vh) auto;overflow:auto}
+  .lb .stage img{max-height:50vh}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 14px}
+}
+@media (prefers-reduced-motion:reduce){.frame{transition:none}.piece:hover .frame{transform:none}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Signed &amp; numbered waterfowl stamp prints</div>
+    <h1>Duck Stamp Prints, <em>1981–1991</em></h1>
+    <p class="lede">Twenty-one framed prints, each matted with the stamp it was painted for. They make two unbroken runs: ten Federal prints from 1981-82 through 1990-91, and the first ten Arkansas state prints from 1981-82 through 1990-91. Every Arkansas print is number 105 of a 600-print special series. A 1984 reissue of Ding Darling's 1934 design for the first Federal stamp completes the set.</p>
+    <ul class="facts">
+      <li><b>10</b> Federal</li>
+      <li><b>10</b> Arkansas</li>
+      <li><b>1</b> commemorative</li>
+      <li>Arkansas special series <b>105/600</b></li>
+    </ul>
+  </header>
+
+  <div class="toolbar">
+    <div class="seg" role="group" aria-label="Arrange prints">
+      <button id="v-series" aria-pressed="true">By series</button>
+      <button id="v-folder" aria-pressed="false">By folder</button>
+    </div>
+    <span class="hint">Click a print for details · ← → to browse</span>
+  </div>
+
+  <main id="main"></main>
+
+  <footer>Photographed from the framed originals. Edition numbers, years and artists were read from the pencil margins, stamps and backing folios. The Print18 year is inferred from its $12.50 stamp because no folio was photographed.</footer>
+</div>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-labelledby="lb-title">
+  <div class="stage"><img id="lb-img" alt=""></div>
+  <aside>
+    <div class="nav">
+      <button id="lb-prev" aria-label="Previous print">← Prev</button>
+      <button id="lb-next" aria-label="Next print">Next →</button>
+      <button id="lb-close" class="close" aria-label="Close">Close</button>
+    </div>
+    <span id="lb-tag" class="tag"></span>
+    <h3 id="lb-title"></h3>
+    <div class="num" id="lb-num"></div>
+    <dl id="lb-dl"></dl>
+  </aside>
+</div>
+
+<script>
+const PRINTS = [{"print": 1, "type": "Federal", "year": "1983-84", "artist": "Phil Scholer", "title": "Pintails", "number": 8056, "edition": 17400, "special": false, "extras": "Stamp (signed by artist)", "notes": "Golden Anniversary folio"}, {"print": 2, "type": "Federal", "year": "1985-86", "artist": "Gerald Mobley", "title": "Cinnamon Teal", "number": 474, "edition": 18200, "special": false, "extras": "Stamp (signed by artist)", "notes": ""}, {"print": 3, "type": "Federal", "year": "1984-85", "artist": "William C. Morris", "title": "American Wigeon", "number": 473, "edition": 20400, "special": false, "extras": "Stamp (signed by artist)", "notes": "50th anniversary of the Federal Duck Stamp"}, {"print": 4, "type": "Arkansas", "year": "1984-85", "artist": "Larry Hayden", "title": "Bois D'Arc Pintails", "number": 105, "edition": 600, "special": true, "extras": "Stamp, gold medallion", "notes": ""}, {"print": 5, "type": "Arkansas", "year": "1988-89", "artist": "Maynard Reece", "title": "Cache River Pintails", "number": 105, "edition": 600, "special": true, "extras": "Stamp, signed & numbered companion mini-print", "notes": ""}, {"print": 6, "type": "Arkansas", "year": "1982-83", "artist": "Maynard Reece", "title": "Big Lake Wood Ducks", "number": 105, "edition": 600, "special": true, "extras": "Stamp, companion art piece", "notes": "Second used stamp on back certificate"}, {"print": 7, "type": "Federal", "year": "1981-82", "artist": "John S. Wilson", "title": "Ruddy Ducks", "number": 10024, "edition": 16000, "special": false, "extras": "Stamp (signed by artist)", "notes": ""}, {"print": 8, "type": "Federal", "year": "1988-89", "artist": "Daniel Smith", "title": "Snow Goose", "number": 15881, "edition": 22000, "special": false, "extras": "Stamp", "notes": ""}, {"print": 9, "type": "Arkansas", "year": "1985-86", "artist": "Ken Carlson", "title": "Bayou DeView Mallards", "number": 105, "edition": 600, "special": true, "extras": "Stamp, signed & numbered remarque etching, two leg bands", "notes": "Leg band reads \"ARKANSAS DUCK PRINT 105\""}, {"print": 10, "type": "Federal", "year": "1989-90", "artist": "Neal R. Anderson", "title": "Lesser Scaup", "number": 2562, "edition": 20000, "special": false, "extras": "Stamp", "notes": ""}, {"print": 11, "type": "Federal", "year": "1982-83", "artist": "David A. Maass", "title": "Canvasbacks", "number": 3612, "edition": 22250, "special": false, "extras": "Stamp (signed by artist), second stamp on back", "notes": ""}, {"print": 12, "type": "Federal", "year": "1987-88", "artist": "Arthur G. Anderson", "title": "Redheads", "number": 6233, "edition": 20000, "special": false, "extras": "Stamp", "notes": "Certificate of authenticity on back"}, {"print": 13, "type": "Federal", "year": "1986-87", "artist": "Burton E. Moore, Jr.", "title": "Fulvous Whistling Duck", "number": 12632, "edition": 16310, "special": false, "extras": "Stamp", "notes": "Folio also signed in ink"}, {"print": 14, "type": "Arkansas", "year": "1987-88", "artist": "Robert Bateman", "title": "Hurricane Lake Wood Ducks", "number": 105, "edition": 600, "special": true, "extras": "Stamp, gold medallion", "notes": ""}, {"print": 15, "type": "Arkansas", "year": "1989-90", "artist": "Phillip Crowe", "title": "Wing Mead Mallards", "number": 105, "edition": 600, "special": true, "extras": "Stamp, gold medallion", "notes": ""}, {"print": 16, "type": "Arkansas", "year": "1981-82", "artist": "Lee LeBlanc", "title": "Bayou Meto Mallards", "number": 105, "edition": 600, "special": true, "extras": "Stamp, printed remarque", "notes": "Marked \"Remarques\"; first Arkansas duck stamp"}, {"print": 17, "type": "Arkansas", "year": "1986-87", "artist": "Jack Cowan", "title": "Black Swamp Mallards", "number": 105, "edition": 600, "special": true, "extras": "Stamp, gold-foil replica", "notes": ""}, {"print": 18, "type": "Federal", "year": "1990-91", "artist": "Jim Hautman", "title": "Black-bellied Whistling Ducks", "number": 2563, "edition": 14500, "special": false, "extras": "Stamp", "notes": "Year inferred from the $12.50 stamp; no folio photographed"}, {"print": 19, "type": "Arkansas", "year": "1990-91", "artist": "David A. Maass", "title": "Point Remove: Black Duck and Mallards", "number": 105, "edition": 600, "special": true, "extras": "Stamp, gold-foil replica", "notes": "10th anniversary Arkansas stamp"}, {"print": 20, "type": "Arkansas", "year": "1983-84", "artist": "David A. Maass", "title": "Black River Green-winged Teal", "number": 105, "edition": 600, "special": true, "extras": "Stamp, pewter medallion", "notes": ""}, {"print": 21, "type": "Other", "year": "1934 (issued 1984)", "artist": "J.N. \"Ding\" Darling", "title": "Design for First Federal Duck Stamp (Mallards)", "number": 1030, "edition": 2000, "special": false, "extras": "Ding Darling Foundation 50th Anniversary $5 conservation stamp", "notes": "Commemorative \"Conservation Edition\", not a hunting stamp print; gift inscription on back, Christmas 1984"}];
+const fmt = n => n.toLocaleString('en-US');
+const kind = t => t==='Federal' ? 'fed' : t==='Arkansas' ? 'ark' : 'oth';
+const label = t => t==='Other' ? 'Commemorative' : t;
+const img = p => `img/print${String(p.print).padStart(2,'0')}.jpg`;
+let order = [];
+
+function card(p){
+  return `<button class="piece" data-i="${p.print}">
+    <div class="frame"><img src="${img(p)}" alt="${p.year} ${p.title} by ${p.artist}" loading="lazy"></div>
+    <div class="cap">
+      <div class="row"><span class="yr">${p.year.replace(' (issued 1984)','')}</span><span class="tag ${kind(p.type)}">${label(p.type)}</span></div>
+      <div class="ttl">${p.title}</div>
+      <div class="art">${p.artist}</div>
+      <div class="ed">Print${p.print} · No. ${fmt(p.number)} / ${fmt(p.edition)}${p.special?' · <span class="sp">Special series</span>':''}</div>
+    </div></button>`;
+}
+function run(cls, title, sub, list){
+  return `<section class="run ${cls}"><div class="runhead"><h2>${title}</h2><span class="sub">${sub}</span></div>
+    <div class="grid">${list.map(card).join('')}</div></section>`;
+}
+function render(view){
+  const main = document.getElementById('main');
+  const byYear = (a,b) => a.year.localeCompare(b.year);
+  if(view==='series'){
+    const fed = PRINTS.filter(p=>p.type==='Federal').sort(byYear);
+    const ark = PRINTS.filter(p=>p.type==='Arkansas').sort(byYear);
+    const oth = PRINTS.filter(p=>p.type==='Other');
+    order = [...oth, ...fed, ...ark];
+    main.innerHTML =
+      run('oth','Where it began','The 1934 design, reissued for the stamp’s 50th anniversary', oth) +
+      run('fed','Federal Migratory Bird Hunting & Conservation Stamp','Regular signed editions, 1981-82 to 1990-91', fed) +
+      run('ark','Arkansas Waterfowl Stamp','Special series no. 105 of 600, 1981-82 to 1990-91', ark);
+  } else {
+    order = [...PRINTS].sort((a,b)=>a.print-b.print);
+    main.innerHTML = `<section class="run"><div class="grid">${order.map(card).join('')}</div></section>`;
+  }
+  document.querySelectorAll('.piece').forEach(b=>b.addEventListener('click',()=>open(+b.dataset.i)));
+}
+const lb = document.getElementById('lb');
+let cur = null, lastFocus = null;
+function open(n){
+  const p = PRINTS.find(x=>x.print===n); cur = n;
+  if(lb.hidden) lastFocus = document.activeElement;
+  document.getElementById('lb-img').src = img(p);
+  document.getElementById('lb-img').alt = `${p.title} by ${p.artist}, framed`;
+  const t = document.getElementById('lb-tag'); t.className = 'tag '+kind(p.type); t.textContent = label(p.type)+' · '+p.year;
+  document.getElementById('lb-title').textContent = p.title;
+  document.getElementById('lb-num').innerHTML = `No. ${fmt(p.number)} <small>of ${fmt(p.edition)}</small>`;
+  const rows = [['Artist',p.artist],['Year',p.year],['Stamp',p.type==='Other'?'Ding Darling Foundation commemorative':p.type],
+    ['Special series',p.special?'Yes':'No'],['In frame',p.extras],['Folder','Print'+p.print]];
+  if(p.notes) rows.push(['Notes',p.notes]);
+  document.getElementById('lb-dl').innerHTML = rows.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('');
+  lb.hidden = false; document.getElementById('lb-close').focus();
+}
+function step(d){ const i = order.findIndex(p=>p.print===cur); open(order[(i+d+order.length)%order.length].print); }
+function close(){ lb.hidden = true; cur = null; lastFocus?.focus(); }
+document.getElementById('lb-prev').onclick = ()=>step(-1);
+document.getElementById('lb-next').onclick = ()=>step(1);
+document.getElementById('lb-close').onclick = close;
+lb.addEventListener('click', e=>{ if(e.target===lb || e.target.classList.contains('stage')) close(); });
+document.addEventListener('keydown', e=>{
+  if(lb.hidden) return;
+  if(e.key==='Escape') close(); else if(e.key==='ArrowRight') step(1); else if(e.key==='ArrowLeft') step(-1);
+});
+for(const [id,v] of [['v-series','series'],['v-folder','folder']]){
+  document.getElementById(id).onclick = ()=>{
+    document.querySelectorAll('.seg button').forEach(b=>b.setAttribute('aria-pressed', b.id===id));
+    render(v);
+  };
+}
+render('series');
+</script>
+
+</html>
