@@ -41,10 +41,6 @@ h1 em{font-style:italic;color:var(--fed)}
 .facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin:6px 0 0;padding:0;list-style:none;font:400 13px/1.3 var(--mono);color:var(--muted)}
 .facts b{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
 .toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-block:20px}
-.seg{display:inline-flex;border:1px solid var(--rule);border-radius:999px;padding:3px;background:var(--card)}
-.seg button{all:unset;cursor:pointer;font:500 13px/1 var(--body);padding:8px 14px;border-radius:999px;color:var(--muted)}
-.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
-.seg button:focus-visible{outline:2px solid var(--fed);outline-offset:2px}
 .hint{font:400 12px/1.3 var(--mono);color:var(--muted)}
 
 section.run{padding-block:28px 12px}
@@ -86,6 +82,14 @@ section.run{padding-block:28px 12px}
 .lb .nav button{all:unset;cursor:pointer;font:500 13px/1 var(--body);padding:10px 14px;border:1px solid var(--rule);border-radius:999px}
 .lb .nav button:focus-visible{outline:2px solid var(--fed);outline-offset:2px}
 .lb .close{margin-left:auto}
+.photos{display:grid;gap:10px;padding-top:14px;border-top:1px solid var(--rule)}
+.photos-h{font:500 11px/1.6 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.thumbs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.thumb{all:unset;cursor:pointer;aspect-ratio:1/1;display:grid;place-items:center;background:var(--paper);border:1px solid var(--rule);padding:3px;overflow:hidden}
+.thumb img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.thumb[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.thumb:hover{border-color:var(--muted)}
+.thumb:focus-visible{outline:2px solid var(--fed);outline-offset:2px}
 footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--rule);color:var(--muted);font-size:13px;max-width:70ch}
 @media (max-width:760px){
   .lb{grid-template-columns:1fr;grid-template-rows:minmax(0,55vh) auto;overflow:auto}
@@ -109,16 +113,12 @@ footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--rule);color:v
   </header>
 
   <div class="toolbar">
-    <div class="seg" role="group" aria-label="Arrange prints">
-      <button id="v-series" aria-pressed="true">By series</button>
-      <button id="v-folder" aria-pressed="false">By folder</button>
-    </div>
-    <span class="hint">Click a print for details · ← → to browse</span>
+    <span class="hint">Click a print for details and documentation photos · ← → to browse</span>
   </div>
 
   <main id="main"></main>
 
-  <footer>Photographed from the framed originals. Edition numbers, years and artists were read from the pencil margins, stamps and backing folios. Print18 is listed under 1990-91, the year its stamp was issued. Its artwork is dated 1989.</footer>
+  <footer>Photographed from the framed originals. Edition numbers, years and artists were read from the pencil margins, stamps and backing folios. Jim Hautman's Black-bellied Whistling Ducks is listed under 1990-91, the year its stamp was issued; the artwork is dated 1989.</footer>
 </div>
 
 <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-labelledby="lb-title">
@@ -133,11 +133,15 @@ footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--rule);color:v
     <h3 id="lb-title"></h3>
     <div class="num" id="lb-num"></div>
     <dl id="lb-dl"></dl>
+    <div class="photos">
+      <div class="photos-h" id="lb-photos-h">Photos</div>
+      <div class="thumbs" id="lb-thumbs"></div>
+    </div>
   </aside>
 </div>
 
 <script>
-const PRINTS = [{"print": 1, "type": "Federal", "year": "1983-84", "artist": "Phil Scholer", "title": "Pintails", "number": 8056, "edition": 17400, "special": false, "extras": "Stamp (signed by artist)", "notes": "Golden Anniversary folio", "source": "https://www.fws.gov/media/duck-stamp-1983-1984"}, {"print": 2, "type": "Federal", "year": "1985-86", "artist": "Gerald Mobley", "title": "Cinnamon Teal", "number": 474, "edition": 18200, "special": false, "extras": "Stamp (signed by artist)", "notes": "", "source": "https://www.fws.gov/media/duck-stamp-1985-1986"}, {"print": 3, "type": "Federal", "year": "1984-85", "artist": "William C. Morris", "title": "American Wigeon", "number": 473, "edition": 20400, "special": false, "extras": "Stamp (signed by artist)", "notes": "50th anniversary of the Federal Duck Stamp", "source": "https://www.fws.gov/media/duck-stamp-1984-1985"}, {"print": 4, "type": "Arkansas", "year": "1984-85", "artist": "Larry Hayden", "title": "Bois D'Arc Pintails", "number": 105, "edition": 600, "special": true, "extras": "Stamp, gold medallion", "notes": ""}, {"print": 5, "type": "Arkansas", "year": "1988-89", "artist": "Maynard Reece", "title": "Cache River Pintails", "number": 105, "edition": 600, "special": true, "extras": "Stamp, signed & numbered companion mini-print", "notes": ""}, {"print": 6, "type": "Arkansas", "year": "1982-83", "artist": "Maynard Reece", "title": "Big Lake Wood Ducks", "number": 105, "edition": 600, "special": true, "extras": "Stamp, companion art piece", "notes": "Second used stamp on back certificate"}, {"print": 7, "type": "Federal", "year": "1981-82", "artist": "John S. Wilson", "title": "Ruddy Ducks", "number": 10024, "edition": 16000, "special": false, "extras": "Stamp (signed by artist)", "notes": "", "source": "https://www.fws.gov/media/duck-stamp-1981-1982"}, {"print": 8, "type": "Federal", "year": "1988-89", "artist": "Daniel Smith", "title": "Snow Goose", "number": 15881, "edition": 22000, "special": false, "extras": "Stamp", "notes": "", "source": "https://www.fws.gov/media/duck-stamp-1988-1989"}, {"print": 9, "type": "Arkansas", "year": "1985-86", "artist": "Ken Carlson", "title": "Bayou DeView Mallards", "number": 105, "edition": 600, "special": true, "extras": "Stamp, signed & numbered remarque etching, two leg bands", "notes": "Leg band reads \"ARKANSAS DUCK PRINT 105\""}, {"print": 10, "type": "Federal", "year": "1989-90", "artist": "Neal R. Anderson", "title": "Lesser Scaup", "number": 2562, "edition": 20000, "special": false, "extras": "Stamp", "notes": "", "source": "https://www.fws.gov/media/duck-stamp-1989-1990"}, {"print": 11, "type": "Federal", "year": "1982-83", "artist": "David A. Maass", "title": "Canvasbacks", "number": 3612, "edition": 22250, "special": false, "extras": "Stamp (signed by artist), second stamp on back", "notes": "", "source": "https://www.fws.gov/media/duck-stamp-1982-1983"}, {"print": 12, "type": "Federal", "year": "1987-88", "artist": "Arthur G. Anderson", "title": "Redheads", "number": 6233, "edition": 20000, "special": false, "extras": "Stamp", "notes": "Certificate of authenticity on back", "source": "https://www.fws.gov/media/duck-stamp-1987-1988"}, {"print": 13, "type": "Federal", "year": "1986-87", "artist": "Burton E. Moore, Jr.", "title": "Fulvous Whistling Duck", "number": 12632, "edition": 16310, "special": false, "extras": "Stamp", "notes": "Folio also signed in ink", "source": "https://www.fws.gov/media/duck-stamp-1986-1987"}, {"print": 14, "type": "Arkansas", "year": "1987-88", "artist": "Robert Bateman", "title": "Hurricane Lake Wood Ducks", "number": 105, "edition": 600, "special": true, "extras": "Stamp, gold medallion", "notes": ""}, {"print": 15, "type": "Arkansas", "year": "1989-90", "artist": "Phillip Crowe", "title": "Wing Mead Mallards", "number": 105, "edition": 600, "special": true, "extras": "Stamp, gold medallion", "notes": ""}, {"print": 16, "type": "Arkansas", "year": "1981-82", "artist": "Lee LeBlanc", "title": "Bayou Meto Mallards", "number": 105, "edition": 600, "special": true, "extras": "Stamp, printed remarque", "notes": "Marked \"Remarques\"; first Arkansas duck stamp"}, {"print": 17, "type": "Arkansas", "year": "1986-87", "artist": "Jack Cowan", "title": "Black Swamp Mallards", "number": 105, "edition": 600, "special": true, "extras": "Stamp, gold-foil replica", "notes": ""}, {"print": 18, "type": "Federal", "year": "1990-91", "artist": "Jim Hautman", "title": "Black-bellied Whistling Ducks", "number": 2563, "edition": 14500, "special": false, "extras": "Stamp", "notes": "Artwork and print dated 1989 (plate signed ©1989); stamp issued for 1990-91", "source": "https://www.fws.gov/media/duck-stamp-1990-1991"}, {"print": 19, "type": "Arkansas", "year": "1990-91", "artist": "David A. Maass", "title": "Point Remove: Black Duck and Mallards", "number": 105, "edition": 600, "special": true, "extras": "Stamp, gold-foil replica", "notes": "10th anniversary Arkansas stamp"}, {"print": 20, "type": "Arkansas", "year": "1983-84", "artist": "David A. Maass", "title": "Black River Green-winged Teal", "number": 105, "edition": 600, "special": true, "extras": "Stamp, pewter medallion", "notes": ""}, {"print": 21, "type": "Other", "year": "1934 (issued 1984)", "artist": "J.N. \"Ding\" Darling", "title": "Design for First Federal Duck Stamp (Mallards)", "number": 1030, "edition": 2000, "special": false, "extras": "Ding Darling Foundation 50th Anniversary $5 conservation stamp", "notes": "Commemorative \"Conservation Edition\", not a hunting stamp print; gift inscription on back, Christmas 1984", "source": "https://www.fws.gov/media/duck-stamp-1934-1935"}];
+const PRINTS = [{"print": 1, "type": "Federal", "year": "1983-84", "artist": "Phil Scholer", "title": "Pintails", "number": 8056, "edition": 17400, "special": false, "extras": "Stamp (signed by artist)", "notes": "Golden Anniversary folio", "source": "https://www.fws.gov/media/duck-stamp-1983-1984", "photos": 5}, {"print": 2, "type": "Federal", "year": "1985-86", "artist": "Gerald Mobley", "title": "Cinnamon Teal", "number": 474, "edition": 18200, "special": false, "extras": "Stamp (signed by artist)", "notes": "", "source": "https://www.fws.gov/media/duck-stamp-1985-1986", "photos": 3}, {"print": 3, "type": "Federal", "year": "1984-85", "artist": "William C. Morris", "title": "American Wigeon", "number": 473, "edition": 20400, "special": false, "extras": "Stamp (signed by artist)", "notes": "50th anniversary of the Federal Duck Stamp", "source": "https://www.fws.gov/media/duck-stamp-1984-1985", "photos": 3}, {"print": 4, "type": "Arkansas", "year": "1984-85", "artist": "Larry Hayden", "title": "Bois D'Arc Pintails", "number": 105, "edition": 600, "special": true, "extras": "Stamp, gold medallion", "notes": "", "photos": 4}, {"print": 5, "type": "Arkansas", "year": "1988-89", "artist": "Maynard Reece", "title": "Cache River Pintails", "number": 105, "edition": 600, "special": true, "extras": "Stamp, signed & numbered companion mini-print", "notes": "", "photos": 2}, {"print": 6, "type": "Arkansas", "year": "1982-83", "artist": "Maynard Reece", "title": "Big Lake Wood Ducks", "number": 105, "edition": 600, "special": true, "extras": "Stamp, companion art piece", "notes": "Second used stamp on back certificate", "photos": 5}, {"print": 7, "type": "Federal", "year": "1981-82", "artist": "John S. Wilson", "title": "Ruddy Ducks", "number": 10024, "edition": 16000, "special": false, "extras": "Stamp (signed by artist)", "notes": "", "source": "https://www.fws.gov/media/duck-stamp-1981-1982", "photos": 2}, {"print": 8, "type": "Federal", "year": "1988-89", "artist": "Daniel Smith", "title": "Snow Goose", "number": 15881, "edition": 22000, "special": false, "extras": "Stamp", "notes": "", "source": "https://www.fws.gov/media/duck-stamp-1988-1989", "photos": 5}, {"print": 9, "type": "Arkansas", "year": "1985-86", "artist": "Ken Carlson", "title": "Bayou DeView Mallards", "number": 105, "edition": 600, "special": true, "extras": "Stamp, signed & numbered remarque etching, two leg bands", "notes": "Leg band reads \"ARKANSAS DUCK PRINT 105\"", "photos": 5}, {"print": 10, "type": "Federal", "year": "1989-90", "artist": "Neal R. Anderson", "title": "Lesser Scaup", "number": 2562, "edition": 20000, "special": false, "extras": "Stamp", "notes": "", "source": "https://www.fws.gov/media/duck-stamp-1989-1990", "photos": 3}, {"print": 11, "type": "Federal", "year": "1982-83", "artist": "David A. Maass", "title": "Canvasbacks", "number": 3612, "edition": 22250, "special": false, "extras": "Stamp (signed by artist), second stamp on back", "notes": "", "source": "https://www.fws.gov/media/duck-stamp-1982-1983", "photos": 2}, {"print": 12, "type": "Federal", "year": "1987-88", "artist": "Arthur G. Anderson", "title": "Redheads", "number": 6233, "edition": 20000, "special": false, "extras": "Stamp", "notes": "Certificate of authenticity on back", "source": "https://www.fws.gov/media/duck-stamp-1987-1988", "photos": 3}, {"print": 13, "type": "Federal", "year": "1986-87", "artist": "Burton E. Moore, Jr.", "title": "Fulvous Whistling Duck", "number": 12632, "edition": 16310, "special": false, "extras": "Stamp", "notes": "Folio also signed in ink", "source": "https://www.fws.gov/media/duck-stamp-1986-1987", "photos": 3}, {"print": 14, "type": "Arkansas", "year": "1987-88", "artist": "Robert Bateman", "title": "Hurricane Lake Wood Ducks", "number": 105, "edition": 600, "special": true, "extras": "Stamp, gold medallion", "notes": "", "photos": 4}, {"print": 15, "type": "Arkansas", "year": "1989-90", "artist": "Phillip Crowe", "title": "Wing Mead Mallards", "number": 105, "edition": 600, "special": true, "extras": "Stamp, gold medallion", "notes": "", "photos": 2}, {"print": 16, "type": "Arkansas", "year": "1981-82", "artist": "Lee LeBlanc", "title": "Bayou Meto Mallards", "number": 105, "edition": 600, "special": true, "extras": "Stamp, printed remarque", "notes": "Marked \"Remarques\"; first Arkansas duck stamp", "photos": 3}, {"print": 17, "type": "Arkansas", "year": "1986-87", "artist": "Jack Cowan", "title": "Black Swamp Mallards", "number": 105, "edition": 600, "special": true, "extras": "Stamp, gold-foil replica", "notes": "", "photos": 2}, {"print": 18, "type": "Federal", "year": "1990-91", "artist": "Jim Hautman", "title": "Black-bellied Whistling Ducks", "number": 2563, "edition": 14500, "special": false, "extras": "Stamp", "notes": "Artwork and print dated 1989 (plate signed ©1989); stamp issued for 1990-91", "source": "https://www.fws.gov/media/duck-stamp-1990-1991", "photos": 1}, {"print": 19, "type": "Arkansas", "year": "1990-91", "artist": "David A. Maass", "title": "Point Remove: Black Duck and Mallards", "number": 105, "edition": 600, "special": true, "extras": "Stamp, gold-foil replica", "notes": "10th anniversary Arkansas stamp", "photos": 2}, {"print": 20, "type": "Arkansas", "year": "1983-84", "artist": "David A. Maass", "title": "Black River Green-winged Teal", "number": 105, "edition": 600, "special": true, "extras": "Stamp, pewter medallion", "notes": "", "photos": 1}, {"print": 21, "type": "Other", "year": "1934 (issued 1984)", "artist": "J.N. \"Ding\" Darling", "title": "Design for First Federal Duck Stamp (Mallards)", "number": 1030, "edition": 2000, "special": false, "extras": "Ding Darling Foundation 50th Anniversary $5 conservation stamp", "notes": "Commemorative \"Conservation Edition\", not a hunting stamp print; gift inscription on back, Christmas 1984", "source": "https://www.fws.gov/media/duck-stamp-1934-1935", "photos": 5}];
 const fmt = n => n.toLocaleString('en-US');
 const kind = t => t==='Federal' ? 'fed' : t==='Arkansas' ? 'ark' : 'oth';
 const label = t => t==='Other' ? 'Commemorative' : t;
@@ -151,29 +155,24 @@ function card(p){
       <div class="row"><span class="yr">${p.year.replace(' (issued 1984)','')}</span><span class="tag ${kind(p.type)}">${label(p.type)}</span></div>
       <div class="ttl">${p.title}</div>
       <div class="art">${p.artist}</div>
-      <div class="ed">Print${p.print} · No. ${fmt(p.number)} / ${fmt(p.edition)}${p.special?' · <span class="sp">Special series</span>':''}</div>
+      <div class="ed">No. ${fmt(p.number)} / ${fmt(p.edition)}${p.special?' · <span class="sp">Special series</span>':''}</div>
     </div></button>`;
 }
 function run(cls, title, sub, list){
   return `<section class="run ${cls}"><div class="runhead"><h2>${title}</h2><span class="sub">${sub}</span></div>
     <div class="grid">${list.map(card).join('')}</div></section>`;
 }
-function render(view){
+function render(){
   const main = document.getElementById('main');
   const byYear = (a,b) => a.year.localeCompare(b.year);
-  if(view==='series'){
-    const fed = PRINTS.filter(p=>p.type==='Federal').sort(byYear);
-    const ark = PRINTS.filter(p=>p.type==='Arkansas').sort(byYear);
-    const oth = PRINTS.filter(p=>p.type==='Other');
-    order = [...oth, ...fed, ...ark];
-    main.innerHTML =
-      run('oth','Where it began','The 1934 design, reissued for the stamp’s 50th anniversary', oth) +
-      run('fed','Federal Migratory Bird Hunting & Conservation Stamp','Regular signed editions, 1981-82 to 1990-91', fed) +
-      run('ark','Arkansas Waterfowl Stamp','Special series no. 105 of 600, 1981-82 to 1990-91', ark);
-  } else {
-    order = [...PRINTS].sort((a,b)=>a.print-b.print);
-    main.innerHTML = `<section class="run"><div class="grid">${order.map(card).join('')}</div></section>`;
-  }
+  const fed = PRINTS.filter(p=>p.type==='Federal').sort(byYear);
+  const ark = PRINTS.filter(p=>p.type==='Arkansas').sort(byYear);
+  const oth = PRINTS.filter(p=>p.type==='Other');
+  order = [...oth, ...fed, ...ark];
+  main.innerHTML =
+    run('oth','Where it began','The 1934 design, reissued for the stamp’s 50th anniversary', oth) +
+    run('fed','Federal Migratory Bird Hunting & Conservation Stamp','Regular signed editions, 1981-82 to 1990-91', fed) +
+    run('ark','Arkansas Waterfowl Stamp','Special series no. 105 of 600, 1981-82 to 1990-91', ark);
   document.querySelectorAll('.piece').forEach(b=>b.addEventListener('click',()=>open(+b.dataset.i)));
 }
 const lb = document.getElementById('lb');
@@ -181,18 +180,32 @@ let cur = null, lastFocus = null;
 function open(n){
   const p = PRINTS.find(x=>x.print===n); cur = n;
   if(lb.hidden) lastFocus = document.activeElement;
-  document.getElementById('lb-img').src = img(p);
-  document.getElementById('lb-img').alt = `${p.title} by ${p.artist}, framed`;
+  const shots = photoList(p);
+  show(shots[0]);
+  document.getElementById('lb-thumbs').innerHTML = shots.map((s,k)=>
+    `<button class="thumb" data-k="${k}" aria-label="${s.alt}" aria-pressed="${k===0}"><img src="${s.thumb}" alt="" loading="lazy"></button>`).join('');
+  document.querySelectorAll('#lb-thumbs .thumb').forEach(b=>b.onclick=()=>{
+    show(shots[+b.dataset.k]);
+    document.querySelectorAll('#lb-thumbs .thumb').forEach(t=>t.setAttribute('aria-pressed', t===b));
+  });
+  document.getElementById('lb-photos-h').textContent = shots.length>1 ? `Photos (${shots.length})` : 'Photo';
   const t = document.getElementById('lb-tag'); t.className = 'tag '+kind(p.type); t.textContent = label(p.type)+' · '+p.year;
   document.getElementById('lb-title').textContent = p.title;
   document.getElementById('lb-num').innerHTML = `No. ${fmt(p.number)} <small>of ${fmt(p.edition)}</small>`;
   const rows = [['Artist',p.artist],['Year',p.year],['Stamp',p.type==='Other'?'Ding Darling Foundation commemorative':p.type],
-    ['Special series',p.special?'Yes':'No'],['In frame',p.extras],['Folder','Print'+p.print]];
+    ['Special series',p.special?'Yes':'No'],['In frame',p.extras]];
   if(p.notes) rows.push(['Notes',p.notes]);
   if(p.source) rows.push(['Official record',`<a href="${p.source}" target="_blank" rel="noopener">U.S. Fish &amp; Wildlife Service</a>`]);
   document.getElementById('lb-dl').innerHTML = rows.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('');
   lb.hidden = false; document.getElementById('lb-close').focus();
 }
+function photoList(p){
+  const pad = String(p.print).padStart(2,'0');
+  const list = [{src:img(p), thumb:`img/thumbs/print${pad}.jpg`, alt:`${p.title}, framed`}];
+  for(let k=1;k<=(p.photos||0);k++) list.push({src:`img/print${pad}-${k}.jpg`, thumb:`img/thumbs/print${pad}-${k}.jpg`, alt:`${p.title}, documentation photo ${k}`});
+  return list;
+}
+function show(s){ const el=document.getElementById('lb-img'); el.src=s.src; el.alt=s.alt; }
 function step(d){ const i = order.findIndex(p=>p.print===cur); open(order[(i+d+order.length)%order.length].print); }
 function close(){ lb.hidden = true; cur = null; lastFocus?.focus(); }
 document.getElementById('lb-prev').onclick = ()=>step(-1);
@@ -203,13 +216,7 @@ document.addEventListener('keydown', e=>{
   if(lb.hidden) return;
   if(e.key==='Escape') close(); else if(e.key==='ArrowRight') step(1); else if(e.key==='ArrowLeft') step(-1);
 });
-for(const [id,v] of [['v-series','series'],['v-folder','folder']]){
-  document.getElementById(id).onclick = ()=>{
-    document.querySelectorAll('.seg button').forEach(b=>b.setAttribute('aria-pressed', b.id===id));
-    render(v);
-  };
-}
-render('series');
+render();
 </script>
 
 </html>
